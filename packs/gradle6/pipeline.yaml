@@ -1,0 +1,25 @@
+extends:
+  file: ../pipeline.yaml
+agent:
+  label: jenkins-gradle6
+  image: wolkenreich/builder-gradle65-java14@latest
+pipelines:
+  pullRequest:
+    build:
+      steps:
+      - sh: gradle clean build
+        name: gradle-build
+  release:
+    setVersion:
+      steps:
+      - sh: echo \$(jx-release-version) > VERSION
+        name: next-version
+        comment: so we can retrieve the version in later steps
+      # TODO
+      # - sh: mvn versions:set -DnewVersion=\$(cat VERSION)
+      - sh: jx step tag --version \$(cat VERSION)
+        name: tag-version
+    build:
+      steps:
+      - sh: gradle clean build
+        name: gradle-build
