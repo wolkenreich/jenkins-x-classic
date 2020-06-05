@@ -2,7 +2,7 @@ extends:
   file: ../pipeline.yaml
 agent:
   label: jenkins-gradle6
-  image: wolkenreich/builder-gradle65-java14@latest
+  image: eu.gcr.io/wolkenreich/builder-gradle65-java14:latest
 pipelines:
   pullRequest:
     build:
