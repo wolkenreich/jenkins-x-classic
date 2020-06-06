@@ -7,7 +7,9 @@ pipelines:
   pullRequest:
     build:
       steps:
-      - sh: gradle clean build
+      - sh: gradle clean
+        name: gradle-clean
+      - sh: gradle build --parallel
         name: gradle-build
   release:
     setVersion:
@@ -21,5 +23,7 @@ pipelines:
         name: tag-version
     build:
       steps:
-      - sh: gradle clean build
+      - sh: gradle clean
+        name: gradle-clean
+      - sh: gradle build --parallel
         name: gradle-build
