@@ -2,14 +2,12 @@ extends:
   file: ../pipeline.yaml
 agent:
   label: jenkins-gradle6
-  image: eu.gcr.io/wolkenreich/builder-gradle65-java14:latest
+  container: gradle6
 pipelines:
   pullRequest:
     build:
       steps:
-      - sh: gradle clean
-        name: gradle-clean
-      - sh: gradle build --parallel
+      - sh: gradle clean build
         name: gradle-build
   release:
     setVersion:
@@ -23,7 +21,5 @@ pipelines:
         name: tag-version
     build:
       steps:
-      - sh: gradle clean
-        name: gradle-clean
-      - sh: gradle build --parallel
+      - sh: gradle clean build
         name: gradle-build
