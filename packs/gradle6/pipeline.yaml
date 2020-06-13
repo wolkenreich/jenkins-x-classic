@@ -7,7 +7,7 @@ pipelines:
   pullRequest:
     build:
       steps:
-      - sh: gradle clean build sonarqube
+      - sh: gradle clean build codeCoverageReport sonarqube
         name: gradle-build
   release:
     setVersion:
@@ -21,5 +21,5 @@ pipelines:
         name: tag-version
     build:
       steps:
-      - sh: gradle -PcurrentVersion=\$(cat VERSION) clean build sonarqube publish
+      - sh: gradle -PcurrentVersion=\$(cat VERSION) clean build codeCoverageReport sonarqube publish
         name: gradle-build
